@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
@@ -17,7 +16,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.android.material.snackbar.Snackbar
 import com.gunawan.pushnotification.databinding.ActivityMainBinding
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -81,4 +79,5 @@ class MainActivity : ComponentActivity() {
         }
         notificationManager.createNotificationChannel(channel)
     }
+
 }
