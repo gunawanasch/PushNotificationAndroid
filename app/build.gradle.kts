@@ -21,13 +21,40 @@ android {
         }
     }
 
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+        create("release") {
+            storeFile = file("push_notification.keystore")
+            storePassword = "pushnotification"
+            keyAlias = "push_notification"
+            keyPassword = "pushnotification"
+        }
+    }
     buildTypes {
         release {
-            isMinifyEnabled = false
+//            signingConfig = signingConfigs.release
+            isMinifyEnabled = true
+            isDebuggable = false
+//            signingConfig = signingConfigs.release
+//            applicationIdSuffix = ""
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
+        }
+        debug {
+//            signingConfig = signingConfigs.debug
+            applicationIdSuffix = "dev"
+            isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = true
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -40,6 +67,7 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+//        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -47,6 +75,17 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    flavorDimensions += "env"
+    productFlavors {
+        create("dev") {
+            dimension = "env"
+            resValue("string", "app_name", "Dev - Push Notification")
+        }
+        create("prod") {
+            dimension = "env"
+            resValue("string", "app_name", "Push Notification")
         }
     }
 }

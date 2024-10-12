@@ -34,6 +34,8 @@ class MainActivity : ComponentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.tvToken.text = applicationContext.packageName
+
         requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             if (it) {
                 Toast.makeText(this,"Permission Notification has actived", Toast.LENGTH_SHORT).show()
